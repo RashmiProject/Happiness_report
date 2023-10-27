@@ -12,7 +12,7 @@ SELECT
 FROM
     report_2020;
 
-# Table shows countries in the top 20 list for the last 3 year. 
+# "The table displays countries that have been in the top 20 list for the last three years." 
 SELECT 
     report_2022.ranks AS 2022_ranks,
     report_2022.country,
@@ -28,7 +28,7 @@ FROM
     report_2020 ON report_2022.ranks = report_2020.ranks
 LIMIT 20;
 
-# Table shows country which are in the bottom list for the last 3 year. 
+# "The table shows countries that have been in the bottom list for the last three years."
 SELECT 
     report_2022.ranks AS 2022_ranks,
     report_2022.country,
@@ -45,7 +45,7 @@ FROM
 ORDER BY report_2022.ranks DESC
 LIMIT 20;
 
-# Table shows countries which are above avergae GDP for 2022 
+# "The table displays countries with GDP values above the average for the year 2020." 
 SELECT 
     ranks, country, explained_by_GDP_per_capita, happiness_score
 FROM
@@ -57,7 +57,7 @@ WHERE
             report_2022)
 ORDER BY explained_by_GDP_per_capita DESC;
 
-# Table shows countries which are above avergae GDP for 2021
+# "The table displays countries with GDP values above the average for the year 2020."
 SELECT 
     ranks,
     country,
@@ -72,7 +72,7 @@ WHERE
             report_2021)
 ORDER BY Explained_by_Log_GDP_per_capita;
 
-# Table shows countries which are above avergae GDP for 2020
+# "The table displays countries with GDP values above the average for the year 2020."
 SELECT 
     ranks,
     country,
@@ -89,7 +89,7 @@ ORDER BY Explained_by_Log_GDP_per_capita;
 
 # considering all the parameter to check which country tops the chart
 
-# country ranking based on social support score for the three year.
+# "The ranking of countries based on social support over the three years."
 SELECT 
     RTW.ranks,
     RTW.country,
@@ -109,7 +109,7 @@ WHERE
         AND RTO.ranks = RTT.ranks
 ORDER BY RTW.explained_by_social_support , RTO.explained_by_social_support , RTT.explained_by_social_support;
  
- #  country ranking based on healthy life score for the three year.
+# "The ranking of countries based on healthy_life over the three years."
  SELECT 
     RTW.ranks,
     RTW.country,
@@ -129,7 +129,7 @@ WHERE
         AND RTO.ranks = RTT.ranks
 ORDER BY RTW.Explained_by_Healthy_life_expectancy , RTO.Explained_by_Healthy_life_expectancy , RTT.Explained_by_Healthy_life_expectancy;
  
- #  country ranking based on Freefome to make life choice score for the three year. 
+ #  "The ranking of countries based on freedom to make life choice over the three years."
   SELECT 
     RTW.ranks,
     RTW.country,
@@ -149,7 +149,7 @@ WHERE
         AND RTO.ranks = RTT.ranks
 ORDER BY RTW.explained_by_freedom_to_make_life_choices , RTO.explained_by_freedom_to_make_life_choices , RTT.explained_by_freedom_to_make_life_choices;
  
- #  country ranking based on Generosity score for the three year. 
+ #  "The ranking of countries based on Generosity over the three years."
    SELECT 
     RTW.ranks,
     RTW.country,
@@ -169,7 +169,7 @@ WHERE
         AND RTO.ranks = RTT.ranks
 ORDER BY RTW.Explained_by_Generosity , RTO.Explained_by_Generosity , RTT.Explained_by_Generosity;
  
-  #  country ranking based on GDP for the three year. 
+ #"The ranking of countries based on GDP over the three years." 
    SELECT 
     RTW.ranks,
     RTW.country,
@@ -189,9 +189,9 @@ WHERE
         AND RTO.ranks = RTT.ranks
 ORDER BY RTW.Explained_by_GDP_per_capita , RTO.Explained_by_LOG_GDP_per_capita , RTT.Explained_by_LOG_GDP_per_capita;
   
-  ## Please note check the accuracy of the data 
-  
-    #  country ranking based on corruption for the three year. 
+
+ # "The ranking of countries based on corruption over the three years."
+	  
      SELECT 
     RTW.ranks,
     RTW.country,
@@ -211,66 +211,63 @@ WHERE
         AND RTO.ranks = RTT.ranks
 ORDER BY RTW.Explained_by_Perceptions_of_corruption , RTO.Explained_by_Perceptions_of_corruption , RTT.Explained_by_Perceptions_of_corruption;
   
-# Below table answers the query if only social support, healthy life, freedon to make life choice,
-# generosity is taken into consideration how does the report changes for 2022.
+#"The table below answers the query of how the report changes for 2022 when only social support, healthy life, freedom to make life choices, and generosity are taken into consideration."
 
-Select row_number() over (order by new_happiness_score) as ranks_order, country, new_happiness_score
-from (select country,(Explained_by_Social_support + 
+SELECT row_number() over (ORDER BY new_happiness_score) as ranks_order, country, new_happiness_score
+FROM (SELECT country,(Explained_by_Social_support + 
 	Explained_by_Healthy_life_expectancy+ 
 	explained_by_Freedom_to_make_life_choices + 
     Explained_by_Generosity)
-    as new_happiness_score from report_2022) as subquery
-    order by new_happiness_score desc;
+    AS new_happiness_score FROM report_2022) AS subquery
+    ORDER BY new_happiness_score DESC;
     
-    # While calculating happiness report we have not inculeded dystopia  and resduial column since this data is imagenary. 
-    # So while calculating hapiness report we taken into consideration 4 factor and ignored dystopia and residual.
+    # "When calculating the happiness report, we did not include the 'dystopia' and 'residual' columns since this data is imaginary. Therefore, our happiness report took into consideration four factors while excluding 'dystopia' and 'residual'."
     
-    # # Below table answers the query if only social support, healthy life, freedon to make life choice,
-# generosity is taken into consideration how does the report changes for 2022.
+  #"The table below answers the query of how the report changes for 2021 when only social support, healthy life, freedom to make life choices, and generosity are taken into consideration."
 
-    Select row_number() over (order by new_happiness_score) as ranks_order, country, new_happiness_score
-from (select country,(Explained_by_Social_support + 
+    SELECT row_number() over (ORDER BY new_happiness_score) AS ranks_order, country, new_happiness_score
+FROM (SELECT country,(Explained_by_Social_support + 
 	Explained_by_Healthy_life_expectancy+ 
 	explained_by_Freedom_to_make_life_choices + 
     Explained_by_Generosity)
-    as new_happiness_score from report_2021) as subquery
-    order by new_happiness_score desc;
+    AS new_happiness_score FROM report_2021) AS subquery
+    ORDER BY new_happiness_score DESC;
     
-     # Below table answers the query if only social support, healthy life, freedon to make life choice,
-	# generosity is taken into consideration how does the report changes for 2022.
+   # "The table below answers the query of how the report changes for 2020 when only social support, healthy life, freedom to make life choices, and generosity are taken into consideration."
     
-    Select row_number() over (order by new_happiness_score) as ranks_order, country, new_happiness_score
-from (select country,(Explained_by_Social_support + 
+    SELECT row_number() over (ORDER BY new_happiness_score) AS ranks_order, country, new_happiness_score
+FROM (SELECT country,(Explained_by_Social_support + 
 	Explained_by_Healthy_life_expectancy+ 
 	explained_by_Freedom_to_make_life_choices + 
     Explained_by_Generosity)
-    as new_happiness_score from report_2020) as subquery
-    order by new_happiness_score desc;
+    AS new_happiness_score FROM report_2020) AS subquery
+    ORDER BY new_happiness_score DESC;
     
     
-    # considered only Explained_by_GDP_per_capita+ Explained_by_GDP_per_capita+
-    #Explained_by_Perceptions_of_corruption  to calcualte ranks
+   # "The ranks were calculated considering only Explained_by_GDP_per_capita,Explained_by_Perceptions_of_corruption to calcualte ranks"
     
-     Select row_number() over (order by combined_data) as ranks_order, country, combined_data 
-		from (select country, Explained_by_GDP_per_capita+ 
+     SELECT row_number() over (ORDER BY combined_data) AS ranks_order, country, combined_data 
+		FROM (SELECT country, Explained_by_GDP_per_capita+ 
 		Explained_by_Perceptions_of_corruption 
-		 as combined_data from report_2022) as subquery
-    order by combined_data desc;
-    
-    Select row_number() over (order by combined_data) as ranks_order, country, combined_data 
-		from (select country, Explained_by_log_GDP_per_capita+ 
+		 AS combined_data FROM report_2022) AS subquery
+    ORDER BY combined_data DESC;
+
+# 2021
+    SELECT row_number() over (ORDER BY combined_data) AS ranks_order, country, combined_data 
+		FROM (SELECT country, Explained_by_log_GDP_per_capita+ 
 		Explained_by_Perceptions_of_corruption 
-		 as combined_data from report_2021) as subquery
-    order by combined_data desc;
-    
-    Select row_number() over (order by combined_data) as ranks_order, country, combined_data 
-		from (select country, Explained_by_log_GDP_per_capita+ 
+		 AS combined_data FROM report_2021) AS subquery
+    ORDER BY combined_data DESC;
+
+#2020
+    SELECT row_number() over (ORDER BY combined_data) AS ranks_order, country, combined_data 
+		FROM (SELECT country, Explained_by_log_GDP_per_capita+ 
 		Explained_by_Perceptions_of_corruption 
-		 as combined_data from report_2020) as subquery
-    order by combined_data;
+		 AS combined_data FROM report_2020) AS subquery
+    ORDER BY combined_data;
     
     # changing the happiness score of the countries by making their GDP equal to averag of all the countries of the last 20 countries. 
-    SELECT 
+SELECT 
 	ranks,
     country, 
     Explained_by_GDP_per_capita,
@@ -281,11 +278,11 @@ from (select country,(Explained_by_Social_support +
     END AS column_changed
 FROM 
     report_2022
-    order by ranks desc
-    limit 20;
+ORDER BY ranks DESC
+LIMIT 20;
     
     # 2021
-     SELECT 
+SELECT 
 	ranks,
     country, 
     Explained_by_log_GDP_per_capita,
@@ -296,10 +293,10 @@ FROM
     END AS column_changed
 FROM 
     report_2021
-    order by ranks desc
-    limit 20;
+ORDER BY ranks DESC
+LIMIT 20;
     
-    SELECT 
+SELECT 
 	ranks,
     country, 
     Explained_by_log_GDP_per_capita,
@@ -310,10 +307,10 @@ FROM
     END AS column_changed
 FROM 
     report_2020
-    order by ranks desc
-    limit 20;
+ ORDER BY ranks DESC
+ LIMIT 20;
     
-    # comapring the happiness score and GDP after increasing for the year 2022
+   "Comparing the happiness score and GDP after the increase for the year 2022."
     	SELECT 
     ranks,
     country,
@@ -326,8 +323,8 @@ FROM
 ORDER BY ranks DESC
 LIMIT 20;
         
-	# comapring the happiness score and GDP after increasing for the year 2021
-      SELECT 
+	#"Comparing the happiness score and GDP after the increase for the year 2022."
+SELECT 
     ranks,
     country,
     ladder_score,
@@ -340,34 +337,34 @@ ORDER BY ranks DESC
 LIMIT 20;
         
 	
-    # comapring the happiness score and GDP after increasing for the year 2020
-   select ranks,country,ladder_score, Explained_by_log_GDP_per_capita,
+  # "Comparing the happiness score and GDP after the increase for the year 2022."
+SELECT ranks,country,ladder_score, Explained_by_log_GDP_per_capita,
 		Explained_by_log_GDP_per_capita + 0.8687778 - Explained_by_log_GDP_per_capita as updated_GDP,
 		ladder_score + (Explained_by_log_GDP_per_capita + 0.8687778 - Explained_by_log_GDP_per_capita)
 		- Explained_by_log_GDP_per_capita as updates_happiness_score
-		from report_2021
-		order by ranks desc
-		limit 20;
+FROM report_2021
+ORDER BY ranks DESC
+LIMIT 20;
     
     
-    # Making the healthy_life score equal to the average for bottom 20 countries to check happiness score. 
+  # "Setting the healthy_life score equal to the average for the bottom 20 countries to assess the happiness score."
     
     # 2022
-        select ranks, country, happiness_score, Explained_by_Healthy_life_expectancy from report_2022
-        where Explained_by_Healthy_life_expectancy < 0.5861712
-        order by ranks desc;
+ SELECT ranks, country, happiness_score, Explained_by_Healthy_life_expectancy FROM report_2022
+ WHERE Explained_by_Healthy_life_expectancy < 0.5861712
+ ORDER BY ranks DESC;
         
         
-        select country,Happiness_score,ranks, Explained_by_Healthy_life_expectancy,
+SELECT country,Happiness_score,ranks, Explained_by_Healthy_life_expectancy,
 		Explained_by_Healthy_life_expectancy + 0.5861712 - Explained_by_Healthy_life_expectancy as updated_health_score,
 		happiness_score + (Explained_by_Healthy_life_expectancy + 0.5861712 - Explained_by_Healthy_life_expectancy)
 		- Explained_by_Healthy_life_expectancy as updates_happiness_score
-		from report_2022
-        where Explained_by_Healthy_life_expectancy < 0.5861712
-		order by ranks desc;
+FROM report_2022
+ WHERE Explained_by_Healthy_life_expectancy < 0.5861712
+ORDER BY ranks DESC;
         
 	# 2021
-     SELECT 
+SELECT 
     ranks,
     country,
     happiness_score,
@@ -378,8 +375,7 @@ WHERE
     Explained_by_Healthy_life_expectancy < 0.5201611
 ORDER BY ranks DESC;
         
-        
-        SELECT 
+SELECT 
     ranks,
     country,
     ladder_score,
@@ -394,7 +390,7 @@ ORDER BY ranks DESC;
         
 	# 2020
     
-     SELECT 
+ SELECT 
     ranks,
     country,
     happiness_score,
@@ -406,7 +402,7 @@ WHERE
 ORDER BY ranks DESC;
         
         
-        SELECT 
+ SELECT 
     ranks,
     country,
     ladder_score,
